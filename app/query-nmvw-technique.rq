@@ -9,8 +9,8 @@ SELECT ?item ?img WHERE {{
   OPTIONAL {{
     ?item edm:rights|dc:rights ?rights .
   }}
-    ?item dct:created ?created .
-    ?anotherItem dct:created ?created .
+    ?item dct:medium ?medium .
+    ?anotherItem dct:medium ?medium .
   FILTER (?anotherItem != ?item)
   FILTER (contains(?rights, "CC"))
 }} LIMIT 5
