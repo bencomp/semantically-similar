@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, abort
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 from SPARQLWrapper import SPARQLWrapper2
 with open('query-nmvw-year.rq') as q_file:
