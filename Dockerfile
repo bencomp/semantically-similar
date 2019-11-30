@@ -1,4 +1,3 @@
-FROM python:3
+FROM tiangolo/uwsgi-nginx-flask:python3.7
 
-ADD ./ /srv/
-ENTRYPOINT [ "ls", "-la", "/srv/" ]
+COPY ./app /app
