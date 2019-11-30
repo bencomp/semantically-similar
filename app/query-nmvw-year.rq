@@ -3,17 +3,15 @@ PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX edm: <http://www.europeana.eu/schemas/edm/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?anotherItem WHERE {{
-  VALUES ?item {{ <{}> }}
-  ?item edm:isShownBy ?obj.
+SELECT ?item ?img WHERE {{
+  VALUES ?anotherItem {{ <{}> }}
+  ?item edm:isShownBy ?img.
   OPTIONAL {{
-    ?item edm:rights ?rights .
+    ?item edm:rights|dc:rights ?rights .
   }}
-  OPTIONAL {{
     ?item dct:created ?created .
-    BIND (datatype(?created) AS ?createdType)
-  }}
-  BIND (IRI(?obj) AS ?img)
-  FILTER 
+    ?anotherItem dct:created ?created .
+  # BIND (IRI(?obj) AS ?img)
+  FILTER (?anotherItem != ?item)
   FILTER (contains(?rights, "CC"))
-}} LIMIT 1000
+}} LIMIT 5
