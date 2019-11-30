@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, abort
-import requests
+
 app = Flask(__name__)
 
 from SPARQLWrapper import SPARQLWrapper2
