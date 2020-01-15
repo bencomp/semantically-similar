@@ -34,17 +34,22 @@ rijks = SPARQLWrapper2(SPARQL_ENDPOINT_RIJKS)
 def year():
     uri = request.args.get('uri', '')
     year = get_year(uri)
+    app.logger.debug("year: {}".format( year))
     if year == []:
         year = "1900"
+    app.logger.debug("querying NMVW for year")
     nmvw.setQuery(query_string_year.format(uri, year))
+    app.logger.debug("querying Rijks for year")
     rijks.setQuery(query_string_year2.format(uri, year))
     try :
+        app.logger.debug("querying NMVW for items")
         ret = nmvw.query()
+        app.logger.debug("querying Rijks for items")
         ret2 = rijks.query()
     except Exception as e:
-        print(e)
+        return "Uh oh", 500
     return linked_art_it(uri, ret.bindings + ret2.bindings)
-    # return jsonify([binding["item"].value for binding in ret.bindings])
+
 
 @app.route('/location')
 def location():
